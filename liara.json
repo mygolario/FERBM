@@ -1,0 +1,14 @@
+{
+  "platform": "node",
+  "app": "ferbm",
+  "port": 3000,
+  "node": {
+    "version": "20"
+  },
+  "disks": [
+    {
+      "name": "media",
+      "mountTo": "/app/public/media"
+    }
+  ]
+}
