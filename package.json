@@ -22,6 +22,7 @@
     "payload": "^3.85.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "sharp": "^0.35.1",
     "zibal": "^1.0.2"
   },
   "devDependencies": {
@@ -34,8 +35,5 @@
     "eslint-config-next": "15.5.19",
     "tailwindcss": "^4",
     "typescript": "^5"
-  },
-  "optionalDependencies": {
-    "sharp": "^0.35.1"
   }
 }
