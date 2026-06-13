@@ -271,6 +271,35 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* 3.5. SHOWCASE BANNER */}
+      <section className="relative h-[400px] flex items-center justify-center overflow-hidden border-y border-border-dark">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/collection_banner.png"
+            alt="فرآیند ساخت و گل‌گری"
+            fill
+            className="object-cover opacity-30 scale-102 filter grayscale contrast-115"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
+        </div>
+        <div className="relative z-10 text-center max-w-3xl px-4 space-y-4">
+          <span className="text-accent-gold text-xs font-bold tracking-widest uppercase">شکل‌گیری از هنر ناب</span>
+          <h2 className="text-3xl sm:text-4xl font-black text-white leading-tight">هر ترک، هر بافت، داستانی از صبر و آتش</h2>
+          <p className="text-sm text-text-muted max-w-lg mx-auto leading-relaxed">
+            فرآیند تولید دستی هر قطعه سرامیک بیش از سه هفته زمان می‌برد؛ از ورز دادن گل تا پخت نهایی در دمای ۱۲۵۰ درجه سانتی‌گراد.
+          </p>
+          <div className="pt-2">
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-sm border border-accent-silver/45 hover:border-accent-silver bg-white/5 backdrop-blur-sm text-xs font-bold text-white transition-all hover:bg-white/10"
+            >
+              <span>مشاهده مستندات کارگاهی (وبلاگ)</span>
+              <ArrowLeft size={14} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* 4. ABOUT BRAND STORY */}
       <section id="about" className="py-24 bg-surface-dark/30 border-y border-border-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
