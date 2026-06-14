@@ -6,8 +6,13 @@ import config from "@/payload.config";
 import { formatToman } from "@/lib/toman";
 import { LoginForm } from "@/components/auth/LoginForm";
 import { LogOut, ShoppingBag, MapPin, Calendar, CreditCard } from "lucide-react";
+import { DbMissingError } from "@/components/shared/DbMissingError";
 
 export default async function AccountPage() {
+  if (!process.env.DATABASE_URI) {
+    return <DbMissingError />;
+  }
+
   const session = await auth();
 
   // If not authenticated, render login form

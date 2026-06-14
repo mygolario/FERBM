@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getPayload } from "payload";
 import config from "@/payload.config";
 import { ProductDetailClient } from "@/components/product/ProductDetailClient";
+import { DbMissingError } from "@/components/shared/DbMissingError";
 
 // Local fallbacks matching the 8 images
 const fallbackProducts = [
@@ -104,6 +105,11 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function ProductDetailPage({ params }: Props) {
   const { slug } = await params;
+
+  if (!process.env.DATABASE_URI) {
+    return <DbMissingError />;
+  }
+
   let product: any = null;
   let relatedProducts: any[] = [];
 

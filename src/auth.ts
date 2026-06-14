@@ -1,6 +1,14 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
+// Configure robust environment fallbacks for NextAuth v5 (Auth.js)
+if (!process.env.AUTH_SECRET) {
+  process.env.AUTH_SECRET = process.env.NEXTAUTH_SECRET || process.env.PAYLOAD_SECRET || "ferbm_placeholder_secret_key";
+}
+if (!process.env.NEXTAUTH_URL && process.env.NEXT_PUBLIC_SITE_URL) {
+  process.env.NEXTAUTH_URL = process.env.NEXT_PUBLIC_SITE_URL;
+}
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
     Credentials({

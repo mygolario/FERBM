@@ -17,6 +17,36 @@ import { Affiliates } from "./src/collections/Affiliates";
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
+function sanitizeDatabaseUri(uri: string | undefined): string {
+  if (!uri) return "postgresql://postgres:postgres@localhost:5432/ferbm";
+  try {
+    const match = uri.match(/^(postgres(?:ql)?:\/\/)(.*)@([^@]+)$/);
+    if (match) {
+      const protocol = match[1];
+      const userinfo = match[2];
+      const hostPart = match[3];
+      
+      const colonIndex = userinfo.indexOf(':');
+      if (colonIndex !== -1) {
+        const username = userinfo.substring(0, colonIndex);
+        const password = userinfo.substring(colonIndex + 1);
+        
+        // Decode first to prevent double-encoding, then encode
+        const decodedPassword = decodeURIComponent(password);
+        const encodedPassword = encodeURIComponent(decodedPassword);
+        
+        return `${protocol}${username}:${encodedPassword}@${hostPart}`;
+      }
+    }
+  } catch (err) {
+    console.error("Error sanitizing database URI:", err);
+  }
+  return uri;
+}
+
+const rawDatabaseUri = process.env.DATABASE_URI;
+const sanitizedDatabaseUri = sanitizeDatabaseUri(rawDatabaseUri);
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -43,7 +73,7 @@ export default buildConfig({
   secret: process.env.PAYLOAD_SECRET || "ferbm_placeholder_secret_key",
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URI || "postgresql://postgres:postgres@localhost:5432/ferbm",
+      connectionString: sanitizedDatabaseUri,
     },
   }),
   typescript: {

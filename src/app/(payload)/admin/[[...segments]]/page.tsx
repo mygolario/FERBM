@@ -1,6 +1,7 @@
 import config from "@/payload.config";
 import { RootPage } from "@payloadcms/next/views";
 import { importMap } from "../../importMap";
+import { DbMissingError } from "@/components/shared/DbMissingError";
 
 type Args = {
   params: Promise<{
@@ -12,6 +13,10 @@ type Args = {
 };
 
 const Page = async ({ params, searchParams }: Args) => {
+  if (!process.env.DATABASE_URI) {
+    return <DbMissingError />;
+  }
+
   return (
     <RootPage
       config={config}
