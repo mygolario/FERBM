@@ -6,6 +6,7 @@ import { getPayload } from "payload";
 import config from "@/payload.config";
 import { getJalaliDateString } from "@/lib/jalali";
 import { Calendar, Clock, ArrowRight, User } from "lucide-react";
+import { DbMissingError } from "@/components/shared/DbMissingError";
 
 // Mock posts with HTML contents for the single post view
 const fallbackPosts = [
@@ -84,6 +85,11 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function BlogPostDetailPage({ params }: Props) {
   const { slug } = await params;
+
+  if (!process.env.DATABASE_URI) {
+    return <DbMissingError />;
+  }
+
   let post: any = null;
   let relatedPosts: any[] = [];
 
