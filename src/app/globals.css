@@ -1,15 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #F5F5F5;
-  --surface-light: #1a1a1a;
-  --surface-dark: #141414;
+  --background: #080808;
+  --foreground: #EDE8DF;
+  --surface-light: #1a1916;
+  --surface-dark: #121210;
   --accent-silver-start: #C0C0C0;
   --accent-silver-end: #E8E8E8;
-  --accent-gold: #8B7355;
-  --text-muted: #888888;
-  --border-color: #2a2a2a;
+  --accent-gold: #9A7B4F;
+  --accent-crimson: #8B2020;
+  --text-muted: #8a8479;
+  --border-color: #252320;
 }
 
 @theme {
@@ -19,13 +20,14 @@
   --color-surface-dark: var(--surface-dark);
   --color-accent-silver: var(--accent-silver-start);
   --color-accent-gold: var(--accent-gold);
+  --color-accent-crimson: var(--accent-crimson);
   --color-text-muted: var(--text-muted);
   --color-border-dark: var(--border-color);
-  
+
   --font-sans: var(--font-vazirmatn), system-ui, -apple-system, sans-serif;
 }
 
-/* Base resets and defaults */
+/* ─── Base ─── */
 body {
   background-color: var(--background);
   color: var(--foreground);
@@ -35,7 +37,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Custom styles for luxury silver/metallic accents and gradients */
+/* ─── Gradient Utilities ─── */
 .silver-gradient {
   background: linear-gradient(135deg, var(--accent-silver-start) 0%, var(--accent-silver-end) 100%);
 }
@@ -47,33 +49,74 @@ body {
 }
 
 .gold-gradient {
-  background: linear-gradient(135deg, #8B7355 0%, #BDA07A 100%);
+  background: linear-gradient(135deg, #9A7B4F 0%, #C4A265 100%);
 }
 
 .gold-text-gradient {
-  background: linear-gradient(135deg, #8B7355 0%, #BDA07A 100%);
+  background: linear-gradient(135deg, #9A7B4F 0%, #C4A265 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Glassmorphism card utility */
+/* ─── Glassmorphism ─── */
 .glass-panel {
-  background: rgba(20, 20, 20, 0.7);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(42, 42, 42, 0.5);
+  background: rgba(18, 18, 16, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(37, 35, 32, 0.5);
 }
 
 .glass-panel-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-panel-hover:hover {
-  border-color: rgba(192, 192, 192, 0.4);
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
-  transform: translateY(-2px);
+  border-color: rgba(154, 123, 79, 0.35);
+  box-shadow: 0 16px 48px 0 rgba(0, 0, 0, 0.6);
+  transform: translateY(-3px);
 }
 
-/* Custom inputs styling */
+/* ─── Marquee ─── */
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-container {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+}
+
+.marquee-track {
+  display: inline-flex;
+  animation: marquee-scroll 40s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ─── Hero Video Overlay ─── */
+.hero-overlay {
+  background:
+    radial-gradient(ellipse at center, transparent 0%, rgba(8,8,8,0.35) 50%, rgba(8,8,8,0.82) 100%),
+    linear-gradient(to bottom, rgba(8,8,8,0.15) 0%, transparent 25%, transparent 55%, rgba(8,8,8,0.9) 100%);
+}
+
+/* ─── Video Interlude Overlay ─── */
+.video-interlude-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(8,8,8,0.9) 0%,
+    rgba(8,8,8,0.4) 22%,
+    rgba(8,8,8,0.2) 50%,
+    rgba(8,8,8,0.4) 78%,
+    rgba(8,8,8,0.9) 100%
+  );
+}
+
+/* ─── Form Inputs ─── */
 input, textarea, select {
   background-color: var(--surface-dark);
   border: 1px solid var(--border-color);
@@ -83,17 +126,16 @@ input, textarea, select {
 
 input:focus, textarea:focus, select:focus {
   outline: none;
-  border-color: var(--accent-silver-start);
-  box-shadow: 0 0 0 1px var(--accent-silver-start);
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 1px var(--accent-gold);
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
+/* ─── Scrollbar Hiding ─── */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
